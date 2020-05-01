@@ -19,17 +19,34 @@ class Startup
         @@all
     end
 
+    def name 
+        @name
+    end
+
+    def founder 
+        @founder
+    end
+
+    def domain 
+        @domain
+    end
+
+    #Given a string of a **domain** and a string of a **name**, change the domain
+    #and name of the startup. This is the only public method through which the
+    #domain should be changed
     def pivot(new_name, new_domain)
         name = new_name
         domain = new_domain
     end
 
+    #given a string of a **founder's name**, returns the **first startup** whose founder's name matches
     def self.find_by_founder(founder)
         self.all.find do |str| 
             str.founder == founder
         end 
     end
 
+    #should return an **array** of all of the different startup domains
     def self.domains
         self.all.map do |str| 
             str.domain
@@ -45,11 +62,13 @@ class Startup
     #     FundingRound.all.select { |fr| fr.startup == self }
     # end
 
+    #Returns the total number of funding rounds that the startup has gotten
     def num_funding_rounds 
         FundingRound.all.select { |fr| fr.startup == self }.count
         #Or: funding_rounds.sum(&:investment)
     end
 
+    #returns the total sum of investments that the startup has gotten
     def total_funds 
         fr = []
         FundingRound.all.select do |fund|
@@ -60,6 +79,7 @@ class Startup
         fr.sum
     end
     
+    #Returns a **unique** array of all the venture capitalists that have invested in this company
     def investors 
         vent_cap = []
         FundingRound.all.select do |fund|
@@ -75,6 +95,7 @@ class Startup
     #     funding_rounds.map{|fr| fr.venture_capitalist}.uniq
     # end
     
+    #Returns a **unique** array of all the venture capitalists that have invested in this company and are in the Trés Commas club
     def big_investors
         big = []
         investors.select do |worth|

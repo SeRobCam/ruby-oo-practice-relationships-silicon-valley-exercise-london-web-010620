@@ -17,4 +17,20 @@ class FundingRound
         @@all
     end
 
+    def startup 
+        @startup
+    end
+
+    def venture_capitalist 
+        @venture_capitalist
+    end
+
+    def type 
+        @type
+    end
+
+    def investment 
+        @investment
+    end
+
 end
